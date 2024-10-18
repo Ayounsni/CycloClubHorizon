@@ -9,8 +9,6 @@ import java.time.Duration;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-
 public class StageCyclist {
 
     @EmbeddedId

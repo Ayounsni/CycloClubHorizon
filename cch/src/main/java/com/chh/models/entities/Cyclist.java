@@ -12,7 +12,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Cyclist {
 
     @Id
@@ -31,6 +30,7 @@ public class Cyclist {
     @NotNull
     private Integer age;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;

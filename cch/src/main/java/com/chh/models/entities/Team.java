@@ -11,7 +11,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Team {
 
     @Id
@@ -20,6 +19,7 @@ public class Team {
 
     private String name;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Cyclist> cyclists = new ArrayList<>();
 }
