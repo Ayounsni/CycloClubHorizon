@@ -27,26 +27,36 @@ public class Main {
 //        Team newTeam = new Team();
 //        newTeam.setName("SpringBoot");
 //        teamService.createTeam(newTeam);
-        teamService.getAllTeam().forEach(status -> System.out.println(status.getId()));
+//        teamService.getAllTeam().forEach(status -> System.out.println(status.getId()));
         Team team= teamService.getTeamById(1L);
 //        Team team =new Team();
 //        team.setId(11L);
 //        team.setName("Ayoub");
 //        teamService.updateTeam(team);
 //        teamService.deleteTeamById(11L);
-        Cyclist cyclist = new Cyclist();
-        cyclist.setTeam(team);
-        cyclist.setAge(42);
-        cyclist.setFirstname("Ayoub");
-        cyclist.setLastname("Snini");
-        cyclist.setNationality("Marocain");
-        cyclistService.createCyclist(cyclist);
-        team.getCyclists().add(cyclist);
-        List<Cyclist> cyclists = team.getCyclists();
-        cyclists.forEach(System.out::println);
-        System.out.println("-----------------------------");
-
-        cyclistService.getAllCyclists().forEach(Cyclist -> System.out.println(Cyclist.getTeam().getName()));
+//        Cyclist cyclist = new Cyclist();
+//        cyclist.setTeam(team);
+//        cyclist.setAge(42);
+//        cyclist.setFirstname("Kamal");
+//        cyclist.setLastname("Snini");
+//        cyclist.setNationality("Uae");
+//        cyclistService.createCyclist(cyclist);
+//        team.getCyclists().add(cyclist);
+//        System.out.println("suuces");
+//        List<Cyclist> cyclists = team.getCyclists();
+//        cyclists.forEach(System.out::println);
+//        System.out.println("-----------------------------");
+//
+//        cyclistService.getAllCyclists().forEach(Cyclist -> System.out.print(Cyclist.getTeam().getName()));
+//        cyclistService.getAllCyclists().forEach(Cyclist -> System.out.println(Cyclist.getAge()));
+          cyclistService.getAllC().forEach(System.out::println);
+//        cyclistService.deleteCyclistById(1L);
+//        System.out.println("suprimmé");
+//        Cyclist cyclist = new Cyclist();
+//        cyclist.setId(10L);
+//        cyclist.setAge(65);
+//        cyclistService.updateCyclist(cyclist);
+//        System.out.println("update avec succes");
 
     }
 }

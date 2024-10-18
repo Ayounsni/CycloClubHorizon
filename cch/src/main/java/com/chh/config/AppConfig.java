@@ -36,7 +36,7 @@ public class AppConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
 
-        em.getJpaPropertyMap().put("hibernate.show_sql", "true");
+        em.getJpaPropertyMap().put("hibernate.show_sql", "false");
         em.getJpaPropertyMap().put("hibernate.format_sql", "true");
         em.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "update");
 
