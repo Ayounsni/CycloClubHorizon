@@ -17,18 +17,18 @@ import java.util.List;
 @ComponentScan(basePackages = "com.chh")
 public class Main {
     public static void main(String[] args) {
-//      ApplicationContext contexte = new ClassPathXmlApplicationContext("applicationContext.xml");
-//        ApplicationContext contexte = new AnnotationConfigApplicationContext(AppConfig.class);
+//      ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+//        ApplicationContext cont = new AnnotationConfigApplicationContext(AppConfig.class);
         AnnotationConfigApplicationContext contexte = new AnnotationConfigApplicationContext(Main.class);
 
         TeamService teamService = contexte.getBean(TeamService.class);
-        CyclistService cyclistService = contexte.getBean(CyclistService.class);
+//        CyclistService cyclistService = contexte.getBean(CyclistService.class);
 
 //        Team newTeam = new Team();
 //        newTeam.setName("SpringBoot");
 //        teamService.createTeam(newTeam);
-//        teamService.getAllTeam().forEach(status -> System.out.println(status.getId()));
-        Team team= teamService.getTeamById(1L);
+        teamService.getAllTeam().forEach(status -> System.out.println(status.getId()));
+//        Team team= teamService.getTeamById(1L);
 //        Team team =new Team();
 //        team.setId(11L);
 //        team.setName("Ayoub");
@@ -49,7 +49,14 @@ public class Main {
 //
 //        cyclistService.getAllCyclists().forEach(Cyclist -> System.out.print(Cyclist.getTeam().getName()));
 //        cyclistService.getAllCyclists().forEach(Cyclist -> System.out.println(Cyclist.getAge()));
-          cyclistService.getAllC().forEach(System.out::println);
+//        System.out.println("tri par nom");
+//          cyclistService.getAllCyclistTriByName().forEach(System.out::println);
+//          System.out.println("tri par national");
+//        cyclistService.getAllCyclistTriByNationality().forEach(System.out::println);
+//        System.out.println("all");
+//        cyclistService.getAllCyclists().forEach(System.out::println);
+//        System.out.println("tri par team");
+//        cyclistService.getAllCyclistTriByTeam().forEach(System.out::println);
 //        cyclistService.deleteCyclistById(1L);
 //        System.out.println("suprimmé");
 //        Cyclist cyclist = new Cyclist();
