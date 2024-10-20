@@ -1,8 +1,9 @@
 package com.chh.config;
 
+import com.chh.repository.CompetitionRepository;
 import com.chh.repository.TeamRepository;
-import com.chh.services.implementation.TeamService;
-import com.chh.services.interfaces.ITeamService;
+import com.chh.services.implementation.CompetitionService;
+import com.chh.services.interfaces.ICompetitionService;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
@@ -50,10 +51,10 @@ public class AppConfig {
         return transactionManager;
     }
 
-//    @Bean
-//    public ITeamService teamService(TeamRepository teamRepository) {
-//        return new TeamService(teamRepository);
-//    }
+    @Bean
+    public ICompetitionService competitionService(CompetitionRepository competitionRepository) {
+        return new CompetitionService(competitionRepository);
+    }
 
 
 }

@@ -18,6 +18,9 @@ public class Competition {
     private Long id;
 
     @NotNull
+    private String name;
+
+    @NotNull
     private Integer year;
 
     @NotNull

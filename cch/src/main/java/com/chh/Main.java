@@ -1,8 +1,10 @@
 package com.chh;
 
 import com.chh.config.AppConfig;
+import com.chh.models.entities.Competition;
 import com.chh.models.entities.Cyclist;
 import com.chh.models.entities.Team;
+import com.chh.services.implementation.CompetitionService;
 import com.chh.services.implementation.CyclistService;
 import com.chh.services.implementation.TeamService;
 import org.springframework.context.ApplicationContext;
@@ -11,18 +13,20 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Configuration
 @ComponentScan(basePackages = "com.chh")
 public class Main {
     public static void main(String[] args) {
-//      ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-//        ApplicationContext cont = new AnnotationConfigApplicationContext(AppConfig.class);
+      ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ApplicationContext cont = new AnnotationConfigApplicationContext(AppConfig.class);
         AnnotationConfigApplicationContext contexte = new AnnotationConfigApplicationContext(Main.class);
 
-        TeamService teamService = contexte.getBean(TeamService.class);
-//        CyclistService cyclistService = contexte.getBean(CyclistService.class);
+        TeamService teamService = context.getBean(TeamService.class);
+        CyclistService cyclistService = contexte.getBean(CyclistService.class);
+        CompetitionService competitionService = cont.getBean(CompetitionService.class);
 
 //        Team newTeam = new Team();
 //        newTeam.setName("SpringBoot");
@@ -56,7 +60,7 @@ public class Main {
 //        System.out.println("all");
 //        cyclistService.getAllCyclists().forEach(System.out::println);
 //        System.out.println("tri par team");
-//        cyclistService.getAllCyclistTriByTeam().forEach(System.out::println);
+        cyclistService.getAllCyclistTriByTeam().forEach(System.out::println);
 //        cyclistService.deleteCyclistById(1L);
 //        System.out.println("suprimmé");
 //        Cyclist cyclist = new Cyclist();
@@ -64,6 +68,14 @@ public class Main {
 //        cyclist.setAge(65);
 //        cyclistService.updateCyclist(cyclist);
 //        System.out.println("update avec succes");
+
+        Competition competition = new Competition();
+        competition.setName("Course Final");
+        competition.setYear(2004);
+        competition.setStartDate(LocalDate.of(2024, 10, 10));
+        competition.setEndDate(LocalDate.of(2024, 11, 10));
+
+        competitionService.createCompetition(competition);
 
     }
 }

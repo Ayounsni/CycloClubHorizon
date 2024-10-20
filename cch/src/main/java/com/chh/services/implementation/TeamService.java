@@ -13,11 +13,12 @@ import java.util.List;
 @Transactional
 public class TeamService implements ITeamService {
     @Autowired
-    private TeamRepository teamRepository;
+    private  TeamRepository teamRepository;
 
 //    public void setTeamRepository(TeamRepository teamRepository) {
 //        this.teamRepository = teamRepository;
 //    }
+
 //    public TeamService(TeamRepository teamRepository) {
 //        this.teamRepository = teamRepository;
 //    }
