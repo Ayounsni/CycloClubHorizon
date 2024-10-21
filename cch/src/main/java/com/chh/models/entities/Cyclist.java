@@ -35,9 +35,11 @@ public class Cyclist {
     @JoinColumn(name = "team_id")
     private Team team;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "cyclist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CompetitionCyclist> competitions = new ArrayList<>();
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "cyclist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<StageCyclist> stages = new ArrayList<>();
 

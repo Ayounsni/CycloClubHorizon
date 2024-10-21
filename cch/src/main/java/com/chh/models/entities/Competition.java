@@ -28,10 +28,11 @@ public class Competition {
 
     @NotNull
     private LocalDate endDate;
-
+    @ToString.Exclude
     @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CompetitionCyclist> cyclists = new ArrayList<>();
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "competition", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Stage> stages = new ArrayList<>();
 }

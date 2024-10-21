@@ -1,19 +1,20 @@
 package com.chh;
 
 import com.chh.config.AppConfig;
-import com.chh.models.entities.Competition;
-import com.chh.models.entities.Cyclist;
-import com.chh.models.entities.Team;
-import com.chh.services.implementation.CompetitionService;
-import com.chh.services.implementation.CyclistService;
-import com.chh.services.implementation.TeamService;
+import com.chh.models.embeddableId.CyclistCompetitionId;
+import com.chh.models.embeddableId.StageCyclistId;
+import com.chh.models.entities.*;
+import com.chh.models.enums.StageType;
+import com.chh.services.implementation.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Configuration
@@ -27,6 +28,9 @@ public class Main {
         TeamService teamService = context.getBean(TeamService.class);
         CyclistService cyclistService = contexte.getBean(CyclistService.class);
         CompetitionService competitionService = cont.getBean(CompetitionService.class);
+        StageService stageService = contexte.getBean(StageService.class);
+        CompetitionCyclistService competitionCyclistService = contexte.getBean(CompetitionCyclistService.class);
+        StageCyclistService stageCyclistService = contexte.getBean(StageCyclistService.class);
 
 //        Team newTeam = new Team();
 //        newTeam.setName("SpringBoot");
@@ -68,14 +72,72 @@ public class Main {
 //        cyclist.setAge(65);
 //        cyclistService.updateCyclist(cyclist);
 //        System.out.println("update avec succes");
+//        Competition competition = new Competition();
+//        competition.setName("Course France");
+//        competition.setYear(2023);
+//        competition.setStartDate(LocalDate.of(2023, 10, 10));
+//        competition.setEndDate(LocalDate.of(2023, 11, 10));
+//        competitionService.createCompetition(competition);
+//      competitionService.getAllCompetitionByStartDate(LocalDate.of(2023, 10, 10)).forEach(System.out::println);
+//        Competition comp = competitionService.getCompetitionById(1L);
+//        Stage stage = new Stage();
+//        stage.setCompetition(comp);
+//        stage.setStartLocation("safi");
+//        stage.setEndLocation("marrakech");
+//        stage.setType(StageType.FLAT);
+//        stage.setDate(LocalDate.now());
+//        stage.setStartTime(LocalTime.of(12,45));
+//        stage.setNumber(1);
+//        comp.getStages().add(stage);
+//        stageService.createStage(stage);
+//        System.out.println("creer succes");
+//        stageService.getAllStages().forEach(System.out::println);
+//        System.out.println("-----------");
+//        comp.getStages().forEach(System.out::println);
+      Competition comp = competitionService.getCompetitionById(1L);
+      Cyclist cyclist = cyclistService.getCyclistById(9L);
+//      Stage st = new Stage();
+//      st.setCompetition(comp);
+//              st.setStartLocation("oujda");
+//        st.setEndLocation("casa");
+//        st.setType(StageType.FLAT);
+//        st.setDate(LocalDate.now());
+//        st.setStartTime(LocalTime.of(5,45));
+//        st.setNumber(2);
+//        comp.getStages().add(st);
+//        stageService.createStage(st);
 
-        Competition competition = new Competition();
-        competition.setName("Course Final");
-        competition.setYear(2004);
-        competition.setStartDate(LocalDate.of(2024, 10, 10));
-        competition.setEndDate(LocalDate.of(2024, 11, 10));
+      Stage stage = stageService.getStageById(5L);
+//      CyclistCompetitionId cyclistCompetitionId = new CyclistCompetitionId(comp.getId(), cyclist.getId());
+//      CompetitionCyclist competitionCyclist = new CompetitionCyclist();
+//      competitionCyclist.setId(cyclistCompetitionId);
+//      competitionCyclist.setCompetition(comp);
+//      competitionCyclist.setCyclist(cyclist);
+//      competitionCyclistService.createCompetitionCyclist(competitionCyclist);
+//      comp.getCyclists().add(competitionCyclist);
+//      cyclist.getCompetitions().add(competitionCyclist);
+//      System.out.println("yes");
+//      comp.getCyclists().forEach(System.out::println);
+//      System.out.println("yes");
+//      cyclist.getCompetitions().forEach(System.out::println);
+//      System.out.println("yes");
+//      competitionCyclistService.getAllCompetitionCyclists().forEach(System.out::println);
+//      System.out.println("yes");
+//      competitionCyclistService.findByCompetition(comp).forEach(System.out::println);
+//      System.out.println("yes");
+//      competitionCyclistService.findByCyclist(cyclist).forEach(System.out::println);
 
-        competitionService.createCompetition(competition);
+      StageCyclistId stageCyclistId = new StageCyclistId(cyclist.getId(), stage.getId());
+      StageCyclist stageCyclist = new StageCyclist();
+      stageCyclist.setId(stageCyclistId);
+      stageCyclist.setStage(stage);
+      stageCyclist.setCyclist(cyclist);
+      stageCyclist.setTime(Duration.ofHours(10).plusMinutes(4).plusSeconds(46));
+      stageCyclistService.createStageCyclist(stageCyclist);
+      stage.getCyclists().add(stageCyclist);
+      cyclist.getStages().add(stageCyclist);
+      System.out.println("succes");
+
 
     }
 }

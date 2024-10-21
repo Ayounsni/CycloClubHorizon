@@ -37,10 +37,12 @@ public class Stage {
     @Enumerated(EnumType.STRING)
     private StageType type;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "stage", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<StageCyclist> cyclists = new ArrayList<>();
 }

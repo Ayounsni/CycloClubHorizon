@@ -1,6 +1,7 @@
 package com.chh.models.entities;
 
 import com.chh.models.embeddableId.StageCyclistId;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import jakarta.persistence.*;
 import java.time.Duration;
@@ -24,6 +25,8 @@ public class StageCyclist {
     @JoinColumn(name = "stage_id")
     private Stage stage;
 
+    @NotNull
     private Duration time;
+
     private Integer range;
 }
