@@ -1,8 +1,15 @@
 package com.chh.services.implementation;
 
+import com.chh.models.dtos.Cyclist.CreateCyclistDTO;
+import com.chh.models.dtos.Cyclist.CyclistDTO;
 import com.chh.models.entities.Cyclist;
+//import com.chh.models.mappers.CyclistMapper;
+import com.chh.models.entities.Team;
+import com.chh.models.mappers.CyclistMapper;
 import com.chh.repository.CyclistRepository;
+import com.chh.repository.TeamRepository;
 import com.chh.services.interfaces.ICyclistService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +23,11 @@ import java.util.stream.Collectors;
 public class CyclistService implements ICyclistService {
     @Autowired
     public CyclistRepository cyclistRepository;
+    @Autowired
+    private CyclistMapper cyclistMapper;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
 
     @Override
@@ -67,12 +79,22 @@ public class CyclistService implements ICyclistService {
 
 
     @Override
-    public Cyclist getCyclistById(Long id) {
-        return cyclistRepository.findById(id).orElse(null);
+    public CyclistDTO getCyclistById(Long id) {
+       Cyclist cyclist =cyclistRepository.findById(id).orElse(null);
+        return cyclistMapper.toDTO(cyclist) ;
     }
 
     @Override
-    public void createCyclist(Cyclist cyclist) {
-        cyclistRepository.save(cyclist);
+    public CyclistDTO createCyclist(CreateCyclistDTO createCyclistDTO) {
+        Cyclist cyclist = cyclistMapper.toEntity(createCyclistDTO);
+
+        if (createCyclistDTO.getTeamId() != null) {
+            Team team = teamRepository.findById(createCyclistDTO.getTeamId())
+                    .orElseThrow(() -> new EntityNotFoundException("Team not found"));
+            cyclist.setTeam(team);
+        }
+
+        Cyclist savedCyclist = cyclistRepository.save(cyclist);
+        return cyclistMapper.toDTO(savedCyclist);
     }
 }

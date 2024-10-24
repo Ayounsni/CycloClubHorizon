@@ -1,6 +1,7 @@
 package com.chh.models.entities;
 
 import com.chh.models.embeddableId.StageCyclistId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import jakarta.persistence.*;
@@ -18,6 +19,7 @@ public class StageCyclist {
     @ManyToOne
     @MapsId("cyclistId")
     @JoinColumn(name = "cyclist_id")
+    @JsonIgnore
     private Cyclist cyclist;
 
     @ManyToOne

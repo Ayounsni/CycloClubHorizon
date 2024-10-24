@@ -1,5 +1,6 @@
 package com.chh.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -19,8 +20,10 @@ public class Team {
 
     private String name;
 
+
     @ToString.Exclude
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Cyclist> cyclists = new ArrayList<>();
 }
 

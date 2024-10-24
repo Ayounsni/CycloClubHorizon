@@ -12,10 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
 
 @Configuration
 @ComponentScan(basePackages = "com.chh")
@@ -35,7 +31,8 @@ public class Main {
 //        Team newTeam = new Team();
 //        newTeam.setName("SpringBoot");
 //        teamService.createTeam(newTeam);
-        teamService.getAllTeam().forEach(status -> System.out.println(status.getId()));
+//        teamService.getAllTeam().forEach(status -> System.out.println(status.getId()));
+        cyclistService.getAllCyclists().forEach(status -> System.out.println(status.getId()));
 //        Team team= teamService.getTeamById(1L);
 //        Team team =new Team();
 //        team.setId(11L);
@@ -64,7 +61,7 @@ public class Main {
 //        System.out.println("all");
 //        cyclistService.getAllCyclists().forEach(System.out::println);
 //        System.out.println("tri par team");
-        cyclistService.getAllCyclistTriByTeam().forEach(System.out::println);
+//        cyclistService.getAllCyclistTriByTeam().forEach(System.out::println);
 //        cyclistService.deleteCyclistById(1L);
 //        System.out.println("suprimmé");
 //        Cyclist cyclist = new Cyclist();
@@ -94,8 +91,8 @@ public class Main {
 //        stageService.getAllStages().forEach(System.out::println);
 //        System.out.println("-----------");
 //        comp.getStages().forEach(System.out::println);
-      Competition comp = competitionService.getCompetitionById(1L);
-      Cyclist cyclist = cyclistService.getCyclistById(9L);
+//      Competition comp = competitionService.getCompetitionById(1L);
+//      Cyclist cyclist = cyclistService.getCyclistById(9L);
 //      Stage st = new Stage();
 //      st.setCompetition(comp);
 //              st.setStartLocation("oujda");
@@ -126,16 +123,16 @@ public class Main {
 //      competitionCyclistService.findByCompetition(comp).forEach(System.out::println);
 //      System.out.println("yes");
 //      competitionCyclistService.findByCyclist(cyclist).forEach(System.out::println);
-
-      StageCyclistId stageCyclistId = new StageCyclistId(cyclist.getId(), stage.getId());
-      StageCyclist stageCyclist = new StageCyclist();
-      stageCyclist.setId(stageCyclistId);
-      stageCyclist.setStage(stage);
-      stageCyclist.setCyclist(cyclist);
-      stageCyclist.setTime(Duration.ofHours(10).plusMinutes(4).plusSeconds(46));
-      stageCyclistService.createStageCyclist(stageCyclist);
-      stage.getCyclists().add(stageCyclist);
-      cyclist.getStages().add(stageCyclist);
+//
+//      StageCyclistId stageCyclistId = new StageCyclistId(cyclist.getId(), stage.getId());
+//      StageCyclist stageCyclist = new StageCyclist();
+//      stageCyclist.setId(stageCyclistId);
+//      stageCyclist.setStage(stage);
+//      stageCyclist.setCyclist(cyclist);
+//      stageCyclist.setTime(Duration.ofHours(10).plusMinutes(4).plusSeconds(46));
+//      stageCyclistService.createStageCyclist(stageCyclist);
+//      stage.getCyclists().add(stageCyclist);
+//      cyclist.getStages().add(stageCyclist);
       System.out.println("succes");
 
 
