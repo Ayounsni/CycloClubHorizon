@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,8 +23,8 @@ public class CyclistController {
     private CyclistService cyclistService;
 
     @GetMapping
-    public ResponseEntity<List<Cyclist>> getAllCyclists() {
-        List<Cyclist> cyclists = cyclistService.getAllCyclists();
+    public ResponseEntity<List<CyclistDTO>> getAllCyclists() {
+        List<CyclistDTO> cyclists = cyclistService.getAllCyclists();
 
         return new ResponseEntity<>(cyclists, HttpStatus.OK);
     }
@@ -47,6 +46,12 @@ public class CyclistController {
         } catch (Exception e) {
             return new ResponseEntity<>("Error creating cyclist: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTeam(@PathVariable("id") Long id) {
+        cyclistService.deleteCyclistById(id);
+        return new ResponseEntity<>("Le cycliste a été supprimé avec succès",HttpStatus.OK);
     }
 
 

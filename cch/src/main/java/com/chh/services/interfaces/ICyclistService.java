@@ -8,7 +8,7 @@ import com.chh.models.entities.Team;
 import java.util.List;
 
 public interface ICyclistService {
-    List<Cyclist> getAllCyclists();
+    List<CyclistDTO> getAllCyclists();
     CyclistDTO getCyclistById(Long id);
     CyclistDTO createCyclist(CreateCyclistDTO createCyclistDTO);
     void updateCyclist(Cyclist cyclist);

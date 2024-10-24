@@ -38,12 +38,12 @@ public class Cyclist {
 
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<CompetitionCyclist> competitions = new ArrayList<>();
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<StageCyclist> stages = new ArrayList<>();
 

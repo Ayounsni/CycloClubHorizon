@@ -31,8 +31,9 @@ public class CyclistService implements ICyclistService {
 
 
     @Override
-    public List<Cyclist> getAllCyclists() {
-        return cyclistRepository.findAll();
+    public List<CyclistDTO> getAllCyclists() {
+        List<Cyclist> cyclists = cyclistRepository.findAll();
+        return cyclistMapper.toDTOs(cyclists);
     }
 
     @Override
@@ -44,10 +45,13 @@ public class CyclistService implements ICyclistService {
         }
     }
 
-    @Override
     public void deleteCyclistById(Long id) {
+        if (!cyclistRepository.existsById(id)) {
+            throw new EntityNotFoundException("Cycliste non trouvé avec l'id : " + id);
+        }
         cyclistRepository.deleteById(id);
     }
+
 
     @Override
     public void deleteCyclist(Cyclist cyclist) {
