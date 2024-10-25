@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 import java.time.Duration;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompetitionCyclist {
@@ -17,14 +18,10 @@ public class CompetitionCyclist {
 
     @ManyToOne
     @MapsId("cyclistId")
-    @JoinColumn(name = "cyclist_id")
-    @JsonIgnore
     private Cyclist cyclist;
 
     @ManyToOne
     @MapsId("competitionId")
-    @JoinColumn(name = "competition_id")
-    @JsonIgnore
     private Competition competition;
 
     private Duration generalTime;

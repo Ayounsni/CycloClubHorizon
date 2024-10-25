@@ -16,6 +16,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -46,7 +47,7 @@ public class AppConfig implements WebMvcConfigurer {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
 
-        em.getJpaPropertyMap().put("hibernate.show_sql", "false");
+        em.getJpaPropertyMap().put("hibernate.show_sql", "true");
         em.getJpaPropertyMap().put("hibernate.format_sql", "true");
         em.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "update");
 

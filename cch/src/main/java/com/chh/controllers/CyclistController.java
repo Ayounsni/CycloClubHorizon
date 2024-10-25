@@ -49,10 +49,13 @@ public class CyclistController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTeam(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteCyclist(@PathVariable("id") Long id) {
+
+
         cyclistService.deleteCyclistById(id);
-        return new ResponseEntity<>("Le cycliste a été supprimé avec succès",HttpStatus.OK);
+        return new ResponseEntity<>("Deleted succefuly", HttpStatus.OK);
     }
+
 
 
 

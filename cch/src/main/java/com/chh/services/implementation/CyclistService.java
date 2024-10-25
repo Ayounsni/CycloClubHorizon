@@ -2,17 +2,19 @@ package com.chh.services.implementation;
 
 import com.chh.models.dtos.Cyclist.CreateCyclistDTO;
 import com.chh.models.dtos.Cyclist.CyclistDTO;
+import com.chh.models.entities.Cyc;
 import com.chh.models.entities.Cyclist;
 //import com.chh.models.mappers.CyclistMapper;
 import com.chh.models.entities.Team;
 import com.chh.models.mappers.CyclistMapper;
+import com.chh.repository.CycRepository;
 import com.chh.repository.CyclistRepository;
 import com.chh.repository.TeamRepository;
 import com.chh.services.interfaces.ICyclistService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
@@ -23,6 +25,9 @@ import java.util.stream.Collectors;
 public class CyclistService implements ICyclistService {
     @Autowired
     public CyclistRepository cyclistRepository;
+
+    @Autowired
+    private CycRepository cycRepository;
     @Autowired
     private CyclistMapper cyclistMapper;
 
@@ -45,10 +50,12 @@ public class CyclistService implements ICyclistService {
         }
     }
 
+    @Override
     public void deleteCyclistById(Long id) {
-        if (!cyclistRepository.existsById(id)) {
-            throw new EntityNotFoundException("Cycliste non trouvé avec l'id : " + id);
-        }
+        Cyclist cyclist = cyclistRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+//
+//        }
+        System.err.println(cyclist);
         cyclistRepository.deleteById(id);
     }
 

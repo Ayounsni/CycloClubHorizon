@@ -9,7 +9,8 @@ import java.util.List;
 
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Team {
@@ -21,9 +22,7 @@ public class Team {
     private String name;
 
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<Cyclist> cyclists = new ArrayList<>();
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    private List<Cyclist> cyclists;
 }
 

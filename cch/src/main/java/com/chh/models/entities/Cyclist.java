@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cyclist {
@@ -33,19 +34,15 @@ public class Cyclist {
     private Integer age;
 
     @ManyToOne
-    @JoinColumn(name = "team_id")
     private Team team;
 
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<CompetitionCyclist> competitions = new ArrayList<>();
+    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<CompetitionCyclist> competitions ;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<StageCyclist> stages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cyclist",  fetch = FetchType.EAGER)
+    private List<StageCyclist> stages ;
 
 
 }

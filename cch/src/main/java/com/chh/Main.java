@@ -18,12 +18,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
     public static void main(String[] args) {
       ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        ApplicationContext cont = new AnnotationConfigApplicationContext(AppConfig.class);
+//        ApplicationContext cont = new AnnotationConfigApplicationContext(AppConfig.class);
         AnnotationConfigApplicationContext contexte = new AnnotationConfigApplicationContext(Main.class);
 
         TeamService teamService = context.getBean(TeamService.class);
-        CyclistService cyclistService = contexte.getBean(CyclistService.class);
-        CompetitionService competitionService = cont.getBean(CompetitionService.class);
+        CyclistService cyclistService = context.getBean(CyclistService.class);
+//        CompetitionService competitionService = cont.getBean(CompetitionService.class);
         StageService stageService = contexte.getBean(StageService.class);
         CompetitionCyclistService competitionCyclistService = contexte.getBean(CompetitionCyclistService.class);
         StageCyclistService stageCyclistService = contexte.getBean(StageCyclistService.class);
@@ -32,7 +32,7 @@ public class Main {
 //        newTeam.setName("SpringBoot");
 //        teamService.createTeam(newTeam);
 //        teamService.getAllTeam().forEach(status -> System.out.println(status.getId()));
-        cyclistService.getAllCyclists().forEach(status -> System.out.println(status.getId()));
+//        cyclistService.getAllCyclists().forEach(status -> System.out.println(status.getId()));
 //        Team team= teamService.getTeamById(1L);
 //        Team team =new Team();
 //        team.setId(11L);
@@ -104,7 +104,7 @@ public class Main {
 //        comp.getStages().add(st);
 //        stageService.createStage(st);
 
-      Stage stage = stageService.getStageById(5L);
+//      Stage stage = stageService.getStageById(5L);
 //      CyclistCompetitionId cyclistCompetitionId = new CyclistCompetitionId(comp.getId(), cyclist.getId());
 //      CompetitionCyclist competitionCyclist = new CompetitionCyclist();
 //      competitionCyclist.setId(cyclistCompetitionId);
@@ -133,7 +133,9 @@ public class Main {
 //      stageCyclistService.createStageCyclist(stageCyclist);
 //      stage.getCyclists().add(stageCyclist);
 //      cyclist.getStages().add(stageCyclist);
-      System.out.println("succes");
+//      System.out.println("succes");
+        cyclistService.deleteCyclistById(2L);
+        System.out.println("ouii");
 
 
     }
