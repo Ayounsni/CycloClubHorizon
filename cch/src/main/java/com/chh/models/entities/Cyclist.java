@@ -41,7 +41,7 @@ public class Cyclist {
     private List<CompetitionCyclist> competitions ;
 
 
-    @OneToMany(mappedBy = "cyclist",  fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cyclist" ,  fetch = FetchType.EAGER)
     private List<StageCyclist> stages ;
 
 

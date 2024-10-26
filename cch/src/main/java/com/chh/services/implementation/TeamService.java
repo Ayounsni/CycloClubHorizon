@@ -1,6 +1,9 @@
 package com.chh.services.implementation;
 
+import com.chh.models.dtos.Team.TeamDTO;
 import com.chh.models.entities.Team;
+import com.chh.models.mappers.CyclistMapper;
+import com.chh.models.mappers.TeamMapper;
 import com.chh.repository.TeamRepository;
 import com.chh.services.interfaces.ITeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +18,17 @@ public class TeamService implements ITeamService {
     @Autowired
     private  TeamRepository teamRepository;
 
-//    public void setTeamRepository(TeamRepository teamRepository) {
-//        this.teamRepository = teamRepository;
-//    }
-
-//    public TeamService(TeamRepository teamRepository) {
-//        this.teamRepository = teamRepository;
-//    }
+    @Autowired
+    private TeamMapper teamMapper;
 
     @Override
-    public List<Team> getAllTeam() {
-
-        return teamRepository.findAll();
+    public List<TeamDTO> getAllTeam() {
+        List<Team> teams = teamRepository.findAll();
+        return teamMapper.toDTOs(teams) ;
     }
 
     @Override
     public Team getTeamById(Long id) {
-
         return teamRepository.findById(id).orElse(null);
     }
 
@@ -52,11 +49,6 @@ public class TeamService implements ITeamService {
     public void deleteTeamById(Long id) {
         teamRepository.deleteById(id);
     }
-
-    @Override
-    public void deleteTeam(Team team) {
-        teamRepository.delete(team);
-    }
-
+    
 }
 

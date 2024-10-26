@@ -66,24 +66,6 @@ public class AppConfig implements WebMvcConfigurer {
         return new CompetitionService(competitionRepository);
     }
 
-//    @Bean
-//    public ICyclistService cyclistService(CyclistMapper cyclistMapper) {
-//        return new CyclistMapper(cyclistMapper);
-//    }
-
-//    @Bean
-//    public InternalResourceViewResolver jspViewResolver() {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/");
-//        resolver.setSuffix(".jsp");
-//        return resolver;
-//    }
-//    @Override
-//    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-//    }
-
-
 
 
 }

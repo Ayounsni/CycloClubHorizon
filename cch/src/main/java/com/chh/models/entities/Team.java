@@ -1,6 +1,7 @@
 package com.chh.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -19,8 +20,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String name;
-
 
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private List<Cyclist> cyclists;

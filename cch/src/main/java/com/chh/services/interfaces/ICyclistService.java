@@ -2,6 +2,7 @@ package com.chh.services.interfaces;
 
 import com.chh.models.dtos.Cyclist.CreateCyclistDTO;
 import com.chh.models.dtos.Cyclist.CyclistDTO;
+import com.chh.models.dtos.Cyclist.UpdateCyclistDTO;
 import com.chh.models.entities.Cyclist;
 import com.chh.models.entities.Team;
 
@@ -11,7 +12,7 @@ public interface ICyclistService {
     List<CyclistDTO> getAllCyclists();
     CyclistDTO getCyclistById(Long id);
     CyclistDTO createCyclist(CreateCyclistDTO createCyclistDTO);
-    void updateCyclist(Cyclist cyclist);
+    CyclistDTO updateCyclist(Long id, UpdateCyclistDTO updateCyclistDTO);
     void deleteCyclistById(Long id);
     void deleteCyclist(Cyclist cyclist);
     List<Cyclist> getAllCyclistTriByName();

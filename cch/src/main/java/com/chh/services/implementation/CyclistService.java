@@ -2,12 +2,10 @@ package com.chh.services.implementation;
 
 import com.chh.models.dtos.Cyclist.CreateCyclistDTO;
 import com.chh.models.dtos.Cyclist.CyclistDTO;
-import com.chh.models.entities.Cyc;
+import com.chh.models.dtos.Cyclist.UpdateCyclistDTO;
 import com.chh.models.entities.Cyclist;
-//import com.chh.models.mappers.CyclistMapper;
 import com.chh.models.entities.Team;
 import com.chh.models.mappers.CyclistMapper;
-import com.chh.repository.CycRepository;
 import com.chh.repository.CyclistRepository;
 import com.chh.repository.TeamRepository;
 import com.chh.services.interfaces.ICyclistService;
@@ -24,10 +22,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class CyclistService implements ICyclistService {
     @Autowired
-    public CyclistRepository cyclistRepository;
+    private CyclistRepository cyclistRepository;
 
-    @Autowired
-    private CycRepository cycRepository;
     @Autowired
     private CyclistMapper cyclistMapper;
 
@@ -42,20 +38,19 @@ public class CyclistService implements ICyclistService {
     }
 
     @Override
-    public void updateCyclist(Cyclist cyclist) {
-        if (cyclistRepository.existsById(cyclist.getId())) {
-            cyclistRepository.save(cyclist);
-        } else {
-            throw new IllegalArgumentException("Team with ID " + cyclist.getId() + " does not exist.");
-        }
+    public CyclistDTO updateCyclist(Long id, UpdateCyclistDTO updateCyclistDTO) {
+        Cyclist cyclist = cyclistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cyclist with ID " + id + " does not exist."));
+        cyclistMapper.updateCyclistFromDto(updateCyclistDTO, cyclist);
+        Cyclist updatedCyclist = cyclistRepository.save(cyclist);
+        return cyclistMapper.toDTO(updatedCyclist);
     }
 
     @Override
     public void deleteCyclistById(Long id) {
-        Cyclist cyclist = cyclistRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-//
-//        }
-        System.err.println(cyclist);
+        if (!cyclistRepository.existsById(id)) {
+            throw new IllegalArgumentException("Le cycliste avec l'ID " + id + " n'existe pas.");
+        }
         cyclistRepository.deleteById(id);
     }
 
@@ -64,8 +59,6 @@ public class CyclistService implements ICyclistService {
     public void deleteCyclist(Cyclist cyclist) {
         cyclistRepository.delete(cyclist);
     }
-
-
 
     @Override
     public List<Cyclist> getAllCyclistTriByName() {
@@ -91,8 +84,9 @@ public class CyclistService implements ICyclistService {
 
     @Override
     public CyclistDTO getCyclistById(Long id) {
-       Cyclist cyclist =cyclistRepository.findById(id).orElse(null);
-        return cyclistMapper.toDTO(cyclist) ;
+        Cyclist cyclist = cyclistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Le cycliste avec l'ID " + id + " n'existe pas."));
+        return cyclistMapper.toDTO(cyclist);
     }
 
     @Override

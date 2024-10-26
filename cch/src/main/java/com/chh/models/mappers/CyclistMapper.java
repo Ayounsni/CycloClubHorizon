@@ -2,19 +2,21 @@ package com.chh.models.mappers;
 
 import com.chh.models.dtos.Cyclist.CreateCyclistDTO;
 import com.chh.models.dtos.Cyclist.CyclistDTO;
+import com.chh.models.dtos.Cyclist.UpdateCyclistDTO;
 import com.chh.models.entities.Cyclist;
 import com.chh.models.entities.Team;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface CyclistMapper {
 
     @Mapping(target = "team", source = "teamId", qualifiedByName = "mapTeamIdToTeam")
     Cyclist toEntity(CreateCyclistDTO createCyclistDTO);
+
+    @Mapping(target = "team", source = "teamId", qualifiedByName = "mapTeamIdToTeam")
+    void updateCyclistFromDto(UpdateCyclistDTO updateCyclistDTO, @MappingTarget Cyclist cyclist);
 
     @Named("mapTeamIdToTeam")
     default Team mapTeamIdToTeam(Long teamId) {

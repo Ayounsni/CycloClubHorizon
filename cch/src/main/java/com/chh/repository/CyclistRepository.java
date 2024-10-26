@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CyclistRepository extends JpaRepository<Cyclist, Long> {
-    void deleteByLastname(String name);
 }
