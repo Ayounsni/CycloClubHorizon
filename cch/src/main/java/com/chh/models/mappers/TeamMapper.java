@@ -16,6 +16,7 @@ public interface TeamMapper {
 
     void updateTeamFromDto(UpdateTeamDTO updateTeamDTO, @MappingTarget Team team);
 
+    @Mapping(target = "cyclists", source = "cyclists")
     TeamDTO toDTO(Team team);
 
     List<TeamDTO> toDTOs(List<Team> teams);

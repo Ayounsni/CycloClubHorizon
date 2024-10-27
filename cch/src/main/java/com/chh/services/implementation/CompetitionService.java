@@ -1,49 +1,72 @@
 package com.chh.services.implementation;
 
+import com.chh.models.dtos.Competition.CompetitionDTO;
+import com.chh.models.dtos.Competition.CreateCompetitionDTO;
+import com.chh.models.dtos.Competition.UpdateCompetitionDTO;
+import com.chh.models.dtos.Cyclist.CreateCyclistDTO;
+import com.chh.models.dtos.Cyclist.CyclistDTO;
 import com.chh.models.entities.Competition;
 import com.chh.models.entities.Cyclist;
+import com.chh.models.entities.Team;
+import com.chh.models.mappers.CompetitionMapper;
 import com.chh.repository.CompetitionRepository;
 import com.chh.services.interfaces.ICompetitionService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 @Transactional
 public class CompetitionService implements ICompetitionService {
 
-    private final CompetitionRepository competitionRepository;
+    @Autowired
+    private CompetitionRepository competitionRepository;
 
-    public CompetitionService(CompetitionRepository competitionRepository) {
-        this.competitionRepository = competitionRepository;
+    @Autowired
+    private CompetitionMapper competitionMapper;
+
+//    public CompetitionService(CompetitionRepository competitionRepository) {
+//        this.competitionRepository = competitionRepository;
+//    }
+
+    @Override
+    public List<CompetitionDTO> getAllCompetitions() {
+        List<Competition> competitions = competitionRepository.findAll();
+        return competitionMapper.toDTOs(competitions);
     }
 
     @Override
-    public List<Competition> getAllCompetitions() {
-        return competitionRepository.findAll();
+    public CompetitionDTO getCompetitionById(Long id) {
+        Competition competition = competitionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La compétition avec l'ID " + id + " n'existe pas."));
+        return competitionMapper.toDTO(competition);
     }
 
     @Override
-    public Competition getCompetitionById(Long id) {
-        return competitionRepository.findById(id).orElse(null);
+    public CompetitionDTO createCompetition(CreateCompetitionDTO createCompetitionDTO) {
+        Competition competition = competitionMapper.toEntity(createCompetitionDTO);
+        Competition savedCompetition = competitionRepository.save(competition);
+        return competitionMapper.toDTO(savedCompetition);
     }
 
     @Override
-    public void createCompetition(Competition competition) {
-        competitionRepository.save(competition);
-    }
-
-    @Override
-    public void updateCompetition(Competition competition) {
-        if (competitionRepository.existsById(competition.getId())) {
-            competitionRepository.save(competition);
-        } else {
-            throw new IllegalArgumentException("Team with ID " + competition.getId() + " does not exist.");
-        }
+    public CompetitionDTO updateCompetition(Long id, UpdateCompetitionDTO updateCompetitionDTO) {
+        Competition competition = competitionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La compétition avec l'ID " + id + " n'existe pas."));
+        competitionMapper.updateCompetitionFromDto(updateCompetitionDTO, competition);
+        Competition updatedCompetition = competitionRepository.save(competition);
+        return competitionMapper.toDTO(updatedCompetition);
     }
 
     @Override
     public void deleteCompetitionById(Long id) {
+        if (!competitionRepository.existsById(id)) {
+            throw new IllegalArgumentException("La compétition avec l'ID " + id + " n'existe pas.");
+        }
         competitionRepository.deleteById(id);
     }
 
@@ -61,6 +84,5 @@ public class CompetitionService implements ICompetitionService {
     public List<Competition> getAllCompetitionByStartDate(LocalDate startDate) {
         return competitionRepository.findByStartDate(startDate);
     }
-
 
 }

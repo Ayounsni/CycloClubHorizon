@@ -61,10 +61,10 @@ public class AppConfig implements WebMvcConfigurer {
         return transactionManager;
     }
 
-    @Bean
-    public ICompetitionService competitionService(CompetitionRepository competitionRepository) {
-        return new CompetitionService(competitionRepository);
-    }
+//    @Bean
+//    public ICompetitionService competitionService(CompetitionRepository competitionRepository) {
+//        return new CompetitionService(competitionRepository);
+//    }
 
 
 
