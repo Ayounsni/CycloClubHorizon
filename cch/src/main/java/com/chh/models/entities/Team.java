@@ -23,7 +23,7 @@ public class Team {
     @NotBlank
     private String name;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Cyclist> cyclists;
 }
 

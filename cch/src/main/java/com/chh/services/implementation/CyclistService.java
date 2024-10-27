@@ -92,13 +92,11 @@ public class CyclistService implements ICyclistService {
     @Override
     public CyclistDTO createCyclist(CreateCyclistDTO createCyclistDTO) {
         Cyclist cyclist = cyclistMapper.toEntity(createCyclistDTO);
-
         if (createCyclistDTO.getTeamId() != null) {
             Team team = teamRepository.findById(createCyclistDTO.getTeamId())
                     .orElseThrow(() -> new EntityNotFoundException("Team not found"));
             cyclist.setTeam(team);
         }
-
         Cyclist savedCyclist = cyclistRepository.save(cyclist);
         return cyclistMapper.toDTO(savedCyclist);
     }
