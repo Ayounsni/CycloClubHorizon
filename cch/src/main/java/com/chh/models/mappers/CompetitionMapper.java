@@ -23,7 +23,7 @@ public interface CompetitionMapper {
 
     void updateCompetitionFromDto(UpdateCompetitionDTO updateCompetitionDTO, @MappingTarget Competition competition);
 
-//    @Mapping(target = "cyclists", source = "cyclists")
+    @Mapping(target = "stages", source = "stages")
     CompetitionDTO toDTO(Competition competition);
 
     List<CompetitionDTO> toDTOs(List<Competition> competitions);

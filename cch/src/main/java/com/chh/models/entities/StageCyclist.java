@@ -29,4 +29,9 @@ public class StageCyclist {
     private Duration time;
 
     private Integer range;
+
+    public StageCyclist(Long cyclistId, Long stageId, Duration time) {
+        this.id = new StageCyclistId(stageId, cyclistId);
+        this.time = time;
+    }
 }
