@@ -37,7 +37,7 @@ public class Cyclist {
     private Team team;
 
 
-    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.REMOVE,  fetch = FetchType.EAGER)
     private List<CompetitionCyclist> competitions ;
 
 

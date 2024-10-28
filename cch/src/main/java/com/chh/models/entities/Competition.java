@@ -30,10 +30,10 @@ public class Competition {
     @NotNull
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "competition" ,  fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "competition",cascade = CascadeType.REMOVE,  fetch = FetchType.EAGER)
     private List<CompetitionCyclist> cyclists ;
 
-    @OneToMany(mappedBy = "competition",  fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "competition",cascade = CascadeType.REMOVE,   fetch = FetchType.EAGER)
     private List<Stage> stages ;
 }
 

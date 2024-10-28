@@ -41,7 +41,7 @@ public class Stage {
     @ManyToOne
     private Competition competition;
 
-    @OneToMany(mappedBy = "stage",  fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "stage",cascade = CascadeType.REMOVE,  fetch = FetchType.EAGER)
     private List<StageCyclist> cyclists ;
 }
 
