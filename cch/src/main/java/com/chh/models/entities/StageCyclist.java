@@ -30,8 +30,10 @@ public class StageCyclist {
 
     private Integer range;
 
-    public StageCyclist(Long cyclistId, Long stageId, Duration time) {
-        this.id = new StageCyclistId(stageId, cyclistId);
+    public StageCyclist(Stage stage, Cyclist cyclist, Duration time) {
+        this.id = new StageCyclistId(stage.getId(), cyclist.getId());
+        this.cyclist = cyclist;
+        this.stage = stage;
         this.time = time;
     }
 }

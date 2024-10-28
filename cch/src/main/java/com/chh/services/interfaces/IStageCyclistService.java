@@ -1,12 +1,12 @@
 package com.chh.services.interfaces;
 
 import com.chh.models.dtos.StageCyclist.CreateStageCyclistDTO;
-import com.chh.models.entities.CompetitionCyclist;
+import com.chh.models.dtos.StageCyclist.StageCyclistDTO;
 import com.chh.models.entities.StageCyclist;
 
 import java.util.List;
 
 public interface IStageCyclistService {
-    List<StageCyclist> getAllStageCyclists();
-    StageCyclist createStageCyclist(CreateStageCyclistDTO createStageCyclistDTO);
+    List<StageCyclistDTO> getAllStageCyclists();
+    StageCyclistDTO createStageCyclist(CreateStageCyclistDTO createStageCyclistDTO);
 }

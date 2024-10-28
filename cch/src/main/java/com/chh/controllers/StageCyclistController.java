@@ -5,6 +5,7 @@ import com.chh.models.dtos.Competition.CompetitionDTO;
 import com.chh.models.dtos.Competition.CreateCompetitionDTO;
 import com.chh.models.dtos.Competition.UpdateCompetitionDTO;
 import com.chh.models.dtos.StageCyclist.CreateStageCyclistDTO;
+import com.chh.models.dtos.StageCyclist.StageCyclistDTO;
 import com.chh.models.embeddableId.StageCyclistId;
 import com.chh.models.entities.StageCyclist;
 import com.chh.services.implementation.CompetitionService;
@@ -25,11 +26,11 @@ public class StageCyclistController {
     @Autowired
     private StageCyclistService stageCyclistService;
 
-//    @GetMapping
-//    public ResponseEntity<List<CompetitionDTO>> getAllCompetitions() {
-//        List<CompetitionDTO> competitions = competitionService.getAllCompetitions();
-//        return new ResponseEntity<>(competitions, HttpStatus.OK);
-//    }
+    @GetMapping
+    public ResponseEntity<List<StageCyclistDTO>> getAllCompetitions() {
+        List<StageCyclistDTO> stageCyclists = stageCyclistService.getAllStageCyclists();
+        return new ResponseEntity<>(stageCyclists, HttpStatus.OK);
+    }
 //
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Object> getCompetitionById(@PathVariable("id") Long id) {
@@ -47,7 +48,7 @@ public class StageCyclistController {
     public ResponseEntity<Object> createStageCyclist(@Valid @RequestBody CreateStageCyclistDTO stageCyclistDTO) {
         try {
             // Appel du service qui gère la conversion et la sauvegarde
-            StageCyclist savedStageCyclistDTO = stageCyclistService.createStageCyclist(stageCyclistDTO);
+            StageCyclistDTO savedStageCyclistDTO = stageCyclistService.createStageCyclist(stageCyclistDTO);
             return new ResponseEntity<>(savedStageCyclistDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Erreur lors de la création de StageCyclist : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

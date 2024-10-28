@@ -1,8 +1,7 @@
 package com.chh.models.mappers;
 
 import com.chh.models.dtos.StageCyclist.CreateStageCyclistDTO;
-import com.chh.models.dtos.StageCyclist.StageCylistEmbeddableIdDTO;
-import com.chh.models.embeddableId.StageCyclistId;
+import com.chh.models.dtos.StageCyclist.StageCyclistDTO;
 import com.chh.models.entities.StageCyclist;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,5 +13,7 @@ public interface StageCyclistMapper {
     @Mapping(target = "stage.id", source = "id.stageId")      // Accéder à stageId dans l'objet imbriqué
     StageCyclist toEntity(CreateStageCyclistDTO createStageCyclistDTO);
 
-    CreateStageCyclistDTO toDTO(StageCyclist stageCyclist);
+    @Mapping(target = "cyclist.teamName", source = "cyclist.team.name")
+    @Mapping(target = "stage.competitionName", source = "stage.competition.name")
+    StageCyclistDTO toDTO(StageCyclist stageCyclist);
 }
