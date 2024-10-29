@@ -34,6 +34,7 @@ public interface StageMapper {
     }
 
     @Mapping(target = "competitionName", source = "competition.name")
+    @Mapping(target = "stageCyclists", source = "cyclists")
     StageDTO toDTO(Stage stage);
 
     List<StageDTO> toDTOs(List<Stage> stages);

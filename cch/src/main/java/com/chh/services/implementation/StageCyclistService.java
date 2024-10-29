@@ -56,10 +56,19 @@ public class StageCyclistService implements IStageCyclistService {
     public StageCyclistDTO getStageResultByStageAndCyclist(Long stageId, Long cyclistId) {
         StageCyclistId stageCyclistId = new StageCyclistId(stageId, cyclistId);
 
-        StageCyclist stageCyclist = stageCyclistRepository.findById(stageCyclist)
+        StageCyclist stageCyclist = stageCyclistRepository.findById(stageCyclistId)
                 .orElseThrow(() -> new IllegalArgumentException("StageCyclist with stage ID " + stageId + " and cyclist ID " + cyclistId + " does not exist."));
 
         return stageCyclistMapper.toDTO(stageCyclist);
+    }
+
+    @Override
+    public void deleteStageCyclistById(Long stageId, Long cyclistId) {
+        StageCyclistId stageCyclistId = new StageCyclistId(stageId, cyclistId);
+        if (!stageCyclistRepository.existsById(stageCyclistId)) {
+            throw new IllegalArgumentException("StageCyclist with stage ID " + stageId + " and cyclist ID " + cyclistId + " does not exist.");
+        }
+        stageCyclistRepository.deleteById(stageCyclistId);
     }
 
 }

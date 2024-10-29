@@ -36,7 +36,6 @@ public class Cyclist {
     @ManyToOne
     private Team team;
 
-
     @OneToMany(mappedBy = "cyclist", cascade = CascadeType.REMOVE,  fetch = FetchType.EAGER)
     private List<CompetitionCyclist> competitions ;
 

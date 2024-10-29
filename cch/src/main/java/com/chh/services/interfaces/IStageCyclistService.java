@@ -9,4 +9,6 @@ import java.util.List;
 public interface IStageCyclistService {
     List<StageCyclistDTO> getAllStageCyclists();
     StageCyclistDTO createStageCyclist(CreateStageCyclistDTO createStageCyclistDTO);
+    StageCyclistDTO getStageResultByStageAndCyclist(Long stageId, Long cyclistId);
+    void deleteStageCyclistById(Long stageId, Long cyclistId);
 }

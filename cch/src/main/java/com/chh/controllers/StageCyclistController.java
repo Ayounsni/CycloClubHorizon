@@ -47,7 +47,6 @@ public class StageCyclistController {
     @PostMapping
     public ResponseEntity<Object> createStageCyclist(@Valid @RequestBody CreateStageCyclistDTO stageCyclistDTO) {
         try {
-            // Appel du service qui gère la conversion et la sauvegarde
             StageCyclistDTO savedStageCyclistDTO = stageCyclistService.createStageCyclist(stageCyclistDTO);
             return new ResponseEntity<>(savedStageCyclistDTO, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -55,17 +54,29 @@ public class StageCyclistController {
         }
     }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<String> deleteCompetition(@PathVariable("id") Long id) {
-//        try {
-//            competitionService.deleteCompetitionById(id);
-//            return new ResponseEntity<>("La compétition a été supprimée avec succès", HttpStatus.OK);
-//        } catch (IllegalArgumentException e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("Erreur lors de la suppression : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @GetMapping("/{stageId}/{cyclistId}")
+    public ResponseEntity<Object> getStageResult(@PathVariable("stageId") Long stageId, @PathVariable("cyclistId") Long cyclistId) {
+        try {
+            StageCyclistDTO stageResult = stageCyclistService.getStageResultByStageAndCyclist(stageId, cyclistId);
+            return new ResponseEntity<>(stageResult, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erreur lors de la récupération du résultat de l'étape : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{stageId}/{cyclistId}")
+    public ResponseEntity<String> deleteStageCyclist(@PathVariable("stageId") Long stageId, @PathVariable("cyclistId") Long cyclistId) {
+        try {
+            stageCyclistService.deleteStageCyclistById(stageId, cyclistId);
+            return new ResponseEntity<>("La résultat de l'étape a été supprimée avec succès", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erreur lors de la suppression : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 //
 //    @PutMapping("/{id}")
 //    public ResponseEntity<Object> updateCompetition(@PathVariable("id") Long id, @Valid @RequestBody UpdateCompetitionDTO updateCompetitionDTO) {

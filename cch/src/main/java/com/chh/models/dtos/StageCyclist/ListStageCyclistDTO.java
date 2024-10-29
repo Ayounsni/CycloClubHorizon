@@ -12,8 +12,7 @@ import java.time.Duration;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StageCyclistDTO {
-    private StageDTO stage;
+public class ListStageCyclistDTO {
     private CyclistDTO cyclist;
     @JsonFormat(pattern = "HH:mm:ss")
     private String time;
