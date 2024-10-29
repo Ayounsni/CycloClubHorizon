@@ -1,6 +1,8 @@
 package com.chh.models.dtos.Competition;
 
+import com.chh.models.dtos.CompetitionCyclist.ListCyclistDTO;
 import com.chh.models.dtos.Stage.ListStageDTO;
+import com.chh.models.entities.CompetitionCyclist;
 import com.chh.models.entities.Stage;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -22,4 +24,5 @@ public class CompetitionDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private List<ListStageDTO> stages;
+    private List<ListCyclistDTO> cyclists;
 }

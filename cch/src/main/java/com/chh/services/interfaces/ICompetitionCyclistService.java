@@ -10,9 +10,8 @@ import com.chh.models.entities.Stage;
 import java.util.List;
 
 public interface ICompetitionCyclistService {
-    List<CompetitionCyclist> getAllCompetitionCyclists();
+    List<CompetitionCyclistDTO> getAllCompetitionCyclists();
     CompetitionCyclistDTO createCompetitionCyclist(CreateCompetitionCyclistDTO createCompetitionCyclistDTO);
-    List<CompetitionCyclist> findByCyclist(Cyclist cyclist);
-    List<CompetitionCyclist> findByCompetition(Competition competition);
-    void deleteByCyclistAndCompetition(Cyclist cyclist, Competition competition);
+    CompetitionCyclistDTO getCompetitionResultByCompetitionAndCyclist(Long competitionId, Long cyclistId);
+    void deleteCompetitionCyclistById(Long competitionId, Long cyclistId);
 }

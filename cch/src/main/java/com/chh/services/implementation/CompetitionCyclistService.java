@@ -4,6 +4,8 @@ import com.chh.models.dtos.CompetitionCyclist.CompetitionCyclistDTO;
 import com.chh.models.dtos.CompetitionCyclist.CreateCompetitionCyclistDTO;
 import com.chh.models.dtos.StageCyclist.CreateStageCyclistDTO;
 import com.chh.models.dtos.StageCyclist.StageCyclistDTO;
+import com.chh.models.embeddableId.CyclistCompetitionId;
+import com.chh.models.embeddableId.StageCyclistId;
 import com.chh.models.entities.*;
 import com.chh.models.mappers.CompetitionCyclistMapper;
 import com.chh.repository.CompetitionCyclistRepository;
@@ -27,11 +29,11 @@ public class CompetitionCyclistService implements ICompetitionCyclistService {
     private final CompetitionCyclistMapper competitionCyclistMapper;
 
     @Override
-    public List<CompetitionCyclist> getAllCompetitionCyclists() {
-        return competitionCyclistRepository.findAll();
+    public List<CompetitionCyclistDTO> getAllCompetitionCyclists() {
+        return competitionCyclistRepository.findAll()
+                .stream().map(competitionCyclistMapper::toDTO)
+                .toList();
     }
-
-
 
     @Override
     public CompetitionCyclistDTO createCompetitionCyclist(CreateCompetitionCyclistDTO createCompetitionCyclistDTO) {
@@ -50,17 +52,21 @@ public class CompetitionCyclistService implements ICompetitionCyclistService {
     }
 
     @Override
-    public List<CompetitionCyclist> findByCyclist(Cyclist cyclist) {
-        return competitionCyclistRepository.findByCyclist(cyclist);
+    public CompetitionCyclistDTO getCompetitionResultByCompetitionAndCyclist(Long competitionId, Long cyclistId) {
+        CyclistCompetitionId cyclistCompetitionId = new CyclistCompetitionId(competitionId, cyclistId);
+
+        CompetitionCyclist competitionCyclist = competitionCyclistRepository.findById(cyclistCompetitionId)
+                .orElseThrow(() -> new IllegalArgumentException("CompetitionCyclist with competition ID " + competitionId + " and cyclist ID " + cyclistId + " does not exist."));
+
+        return competitionCyclistMapper.toDTO(competitionCyclist);
     }
 
     @Override
-    public List<CompetitionCyclist> findByCompetition(Competition competition) {
-        return competitionCyclistRepository.findByCompetition(competition);
-    }
-
-    @Override
-    public void deleteByCyclistAndCompetition(Cyclist cyclist, Competition competition) {
-        competitionCyclistRepository.deleteByCyclistAndCompetition(cyclist, competition);
+    public void deleteCompetitionCyclistById(Long competitionId, Long cyclistId) {
+        CyclistCompetitionId cyclistCompetitionId = new CyclistCompetitionId(competitionId, cyclistId);
+        if (!competitionCyclistRepository.existsById(cyclistCompetitionId)) {
+            throw new IllegalArgumentException("StageCyclist with stage ID " + competitionId + " and cyclist ID " + cyclistId + " does not exist.");
+        }
+        competitionCyclistRepository.deleteById(cyclistCompetitionId);
     }
 }

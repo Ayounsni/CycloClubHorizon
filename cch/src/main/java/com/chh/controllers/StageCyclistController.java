@@ -31,18 +31,6 @@ public class StageCyclistController {
         List<StageCyclistDTO> stageCyclists = stageCyclistService.getAllStageCyclists();
         return new ResponseEntity<>(stageCyclists, HttpStatus.OK);
     }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Object> getCompetitionById(@PathVariable("id") Long id) {
-//        try {
-//            CompetitionDTO competition = competitionService.getCompetitionById(id);
-//            return new ResponseEntity<>(competition, HttpStatus.OK);
-//        } catch (IllegalArgumentException e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("Erreur lors de la récupération de la compétition : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 
     @PostMapping
     public ResponseEntity<Object> createStageCyclist(@Valid @RequestBody CreateStageCyclistDTO stageCyclistDTO) {
@@ -77,18 +65,6 @@ public class StageCyclistController {
             return new ResponseEntity<>("Erreur lors de la suppression : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Object> updateCompetition(@PathVariable("id") Long id, @Valid @RequestBody UpdateCompetitionDTO updateCompetitionDTO) {
-//        try {
-//            CompetitionDTO updatedCompetition = competitionService.updateCompetition(id, updateCompetitionDTO);
-//            return new ResponseEntity<>(updatedCompetition, HttpStatus.OK);
-//        } catch (IllegalArgumentException e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("Erreur lors de la mise à jour : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 
 }
 
