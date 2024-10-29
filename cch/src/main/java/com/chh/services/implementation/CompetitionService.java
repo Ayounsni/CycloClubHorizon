@@ -29,9 +29,6 @@ public class CompetitionService implements ICompetitionService {
     @Autowired
     private CompetitionMapper competitionMapper;
 
-//    public CompetitionService(CompetitionRepository competitionRepository) {
-//        this.competitionRepository = competitionRepository;
-//    }
 
     @Override
     public List<CompetitionDTO> getAllCompetitions() {

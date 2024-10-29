@@ -2,14 +2,11 @@ package com.chh.services.implementation;
 
 import com.chh.models.dtos.StageCyclist.CreateStageCyclistDTO;
 import com.chh.models.dtos.StageCyclist.StageCyclistDTO;
+import com.chh.models.embeddableId.CyclistCompetitionId;
 import com.chh.models.embeddableId.StageCyclistId;
-import com.chh.models.entities.Cyclist;
-import com.chh.models.entities.Stage;
-import com.chh.models.entities.StageCyclist;
+import com.chh.models.entities.*;
 import com.chh.models.mappers.StageCyclistMapper;
-import com.chh.repository.CyclistRepository;
-import com.chh.repository.StageCyclistRepository;
-import com.chh.repository.StageRepository;
+import com.chh.repository.*;
 import com.chh.services.interfaces.IStageCyclistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +24,8 @@ public class StageCyclistService implements IStageCyclistService {
     private final StageCyclistMapper stageCyclistMapper;
     private final CyclistRepository cyclistRepository;
     private final StageRepository stageRepository;
+    private final CompetitionCyclistRepository competitionCyclistRepository;
+    private final CompetitionRepository competitionRepository;
 
     @Override
     public List<StageCyclistDTO> getAllStageCyclists() {
@@ -38,19 +37,23 @@ public class StageCyclistService implements IStageCyclistService {
 
     @Override
     public StageCyclistDTO createStageCyclist(CreateStageCyclistDTO createStageCyclistDTO) {
+        Stage stage = stageRepository.findById(createStageCyclistDTO.getId().getStageId())
+                .orElseThrow(() -> new IllegalArgumentException("Stage with ID " + createStageCyclistDTO.getId().getStageId() + " does not exist."));
+
+        CyclistCompetitionId cyclistCompetitionId = new CyclistCompetitionId(stage.getCompetition().getId(), createStageCyclistDTO.getId().getCyclistId());
+
+        competitionCyclistRepository.findById(cyclistCompetitionId)
+                .orElseThrow(() -> new IllegalArgumentException("cyclist il n est pas participer dans la competition"));
 
         Cyclist cyclist = cyclistRepository.findById(createStageCyclistDTO.getId().getCyclistId())
                 .orElseThrow(() -> new IllegalArgumentException("Cyclist with ID " + createStageCyclistDTO.getId().getCyclistId() + " does not exist."));
 
-        Stage stage = stageRepository.findById(createStageCyclistDTO.getId().getStageId())
-                .orElseThrow(() -> new IllegalArgumentException("Stage with ID " + createStageCyclistDTO.getId().getStageId() + " does not exist."));
-
         StageCyclist stageCyclist = stageCyclistRepository.save(
                 new StageCyclist(stage, cyclist, createStageCyclistDTO.getTime())
         );
-
         return stageCyclistMapper.toDTO(stageCyclist);
     }
+
 
     @Override
     public StageCyclistDTO getStageResultByStageAndCyclist(Long stageId, Long cyclistId) {
