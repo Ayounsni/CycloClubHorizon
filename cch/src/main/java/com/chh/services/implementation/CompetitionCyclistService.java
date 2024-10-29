@@ -1,29 +1,52 @@
 package com.chh.services.implementation;
 
-import com.chh.models.entities.Competition;
-import com.chh.models.entities.CompetitionCyclist;
-import com.chh.models.entities.Cyclist;
+import com.chh.models.dtos.CompetitionCyclist.CompetitionCyclistDTO;
+import com.chh.models.dtos.CompetitionCyclist.CreateCompetitionCyclistDTO;
+import com.chh.models.dtos.StageCyclist.CreateStageCyclistDTO;
+import com.chh.models.dtos.StageCyclist.StageCyclistDTO;
+import com.chh.models.entities.*;
+import com.chh.models.mappers.CompetitionCyclistMapper;
 import com.chh.repository.CompetitionCyclistRepository;
+import com.chh.repository.CompetitionRepository;
+import com.chh.repository.CyclistRepository;
 import com.chh.services.interfaces.ICompetitionCyclistService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CompetitionCyclistService implements ICompetitionCyclistService {
-    @Autowired
-    private CompetitionCyclistRepository competitionCyclistRepository;
+
+    private final CompetitionCyclistRepository competitionCyclistRepository;
+    private final CompetitionRepository competitionRepository;
+    private final CyclistRepository cyclistRepository;
+    private final CompetitionCyclistMapper competitionCyclistMapper;
 
     @Override
     public List<CompetitionCyclist> getAllCompetitionCyclists() {
         return competitionCyclistRepository.findAll();
     }
 
+
+
     @Override
-    public void createCompetitionCyclist(CompetitionCyclist competitionCyclist) {
-        competitionCyclistRepository.save(competitionCyclist);
+    public CompetitionCyclistDTO createCompetitionCyclist(CreateCompetitionCyclistDTO createCompetitionCyclistDTO) {
+
+        Cyclist cyclist = cyclistRepository.findById(createCompetitionCyclistDTO.getId().getCyclistId())
+                .orElseThrow(() -> new IllegalArgumentException("Cyclist with ID " + createCompetitionCyclistDTO.getId().getCyclistId() + " does not exist."));
+
+        Competition competition = competitionRepository.findById(createCompetitionCyclistDTO.getId().getCompetitionId())
+                .orElseThrow(() -> new IllegalArgumentException("Stage with ID " + createCompetitionCyclistDTO.getId().getCompetitionId() + " does not exist."));
+
+        CompetitionCyclist competitionCyclist = competitionCyclistRepository.save(
+                new CompetitionCyclist(competition, cyclist)
+        );
+
+        return competitionCyclistMapper.toDTO(competitionCyclist);
     }
 
     @Override

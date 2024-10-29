@@ -1,6 +1,7 @@
 package com.chh.models.entities;
 
 import com.chh.models.embeddableId.CyclistCompetitionId;
+import com.chh.models.embeddableId.StageCyclistId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import jakarta.persistence.*;
@@ -26,5 +27,11 @@ public class CompetitionCyclist {
 
     private Duration generalTime;
     private Integer generalRange;
+
+    public CompetitionCyclist(Competition competition, Cyclist cyclist) {
+        this.id = new CyclistCompetitionId(competition.getId(), cyclist.getId());
+        this.cyclist = cyclist;
+        this.competition = competition;
+    }
 }
 
