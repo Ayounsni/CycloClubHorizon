@@ -1,7 +1,8 @@
 package com.chh.models.dtos.Stage;
 
 import com.chh.models.dtos.Cyclist.ListCyclistsDTO;
-import com.chh.models.dtos.StageCyclist.ListStageCyclistDTO;
+import com.chh.models.dtos.StageCyclist.ListCyclistDTO;
+import com.chh.models.dtos.StageCyclist.ListCyclistDTO;
 import com.chh.models.enums.StageType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,5 @@ public class StageDTO {
 
     private String competitionName;
 
-    private List<ListStageCyclistDTO> stageCyclists;
+    private List<ListCyclistDTO> stageCyclists;
 }

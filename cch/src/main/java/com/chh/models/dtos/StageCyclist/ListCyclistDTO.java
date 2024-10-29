@@ -1,6 +1,7 @@
 package com.chh.models.dtos.StageCyclist;
 
 import com.chh.models.dtos.Cyclist.CyclistDTO;
+import com.chh.models.dtos.Cyclist.ListCyclistsDTO;
 import com.chh.models.dtos.Stage.StageDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.Duration;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListStageCyclistDTO {
+public class ListCyclistDTO {
     private CyclistDTO cyclist;
     @JsonFormat(pattern = "HH:mm:ss")
     private String time;

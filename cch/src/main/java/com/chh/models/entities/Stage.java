@@ -42,6 +42,7 @@ public class Stage {
     private Competition competition;
 
     @OneToMany(mappedBy = "stage",cascade = CascadeType.REMOVE,  fetch = FetchType.EAGER)
+    @OrderBy("range ASC")
     private List<StageCyclist> cyclists ;
 }
 

@@ -6,10 +6,9 @@ import com.chh.models.dtos.Cyclist.UpdateCyclistDTO;
 import com.chh.models.dtos.Stage.CreateStageDTO;
 import com.chh.models.dtos.Stage.StageDTO;
 import com.chh.models.dtos.Stage.UpdateStageDTO;
-import com.chh.models.entities.Competition;
-import com.chh.models.entities.Cyclist;
-import com.chh.models.entities.Stage;
-import com.chh.models.entities.Team;
+import com.chh.models.dtos.StageCyclist.ListCyclistDTO;
+import com.chh.models.dtos.StageCyclist.ListCyclistDTO;
+import com.chh.models.entities.*;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -36,6 +35,9 @@ public interface StageMapper {
     @Mapping(target = "competitionName", source = "competition.name")
     @Mapping(target = "stageCyclists", source = "cyclists")
     StageDTO toDTO(Stage stage);
+
+    @Mapping(target = "cyclist.teamName", source = "cyclist.team.name")
+    ListCyclistDTO toListStageCyclistDTO(StageCyclist stageCyclist);
 
     List<StageDTO> toDTOs(List<Stage> stages);
 }
