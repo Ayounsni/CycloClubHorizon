@@ -31,6 +31,7 @@ public class Competition {
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "competition",cascade = CascadeType.REMOVE,  fetch = FetchType.EAGER)
+    @OrderBy("generalRange ASC")
     private List<CompetitionCyclist> cyclists ;
 
     @OneToMany(mappedBy = "competition",cascade = CascadeType.REMOVE,   fetch = FetchType.EAGER)

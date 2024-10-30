@@ -1,6 +1,8 @@
 package com.chh.models.dtos.CompetitionCyclist;
 
 import com.chh.models.dtos.Competition.CompetitionDTO;
+import com.chh.models.dtos.Competition.EmbeddabledCompetitionDTO;
+import com.chh.models.dtos.Competition.UpdateCompetitionDTO;
 import com.chh.models.dtos.Cyclist.CyclistDTO;
 import com.chh.models.dtos.Stage.StageDTO;
 import com.chh.models.dtos.StageCyclist.StageCylistEmbeddableIdDTO;
@@ -15,7 +17,7 @@ import java.time.Duration;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompetitionCyclistDTO {
-    private CompetitionDTO competition;
+    private EmbeddabledCompetitionDTO competition;
     private CyclistDTO cyclist;
     @JsonFormat(pattern = "HH:mm:ss")
     private String generalTime;

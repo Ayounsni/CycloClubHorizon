@@ -14,5 +14,6 @@ public interface IStageService {
     StageDTO createStage(CreateStageDTO createStageDTO);
     StageDTO updateStage(Long id, UpdateStageDTO updateStageDTO);
     void deleteStageById(Long id);
+    void updateDone(Long id);
     void deleteStage(Stage stage);
 }

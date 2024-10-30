@@ -64,6 +64,14 @@ public class StageService implements IStageService {
     }
 
     @Override
+    public void updateDone(Long id){
+        Stage stage = stageRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Stage with ID " + id + " does not exist."));
+        stage.setDone(true);
+        stageRepository.save(stage);
+    }
+
+    @Override
     public void deleteStageById(Long id) {
         if (!stageRepository.existsById(id)) {
             throw new IllegalArgumentException("Le cycliste avec l'ID " + id + " n'existe pas.");

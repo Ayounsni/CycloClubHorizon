@@ -44,6 +44,18 @@ public class StageController {
         }
     }
 
+    @GetMapping("/{id}/done")
+    public ResponseEntity<Object> stageDone(@PathVariable("id") Long id) {
+        try {
+             stageService.updateDone(id);
+            return new ResponseEntity<>("Stage is done!", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>( e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Object> createStage(@Valid @RequestBody CreateStageDTO createStageDTO) {
 
